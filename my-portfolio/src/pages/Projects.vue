@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PageContainer from '@/components/PageContainer.vue'
-import { projects } from '@/data/projects'
+import { projects } from '../data/projects'
+
 </script>
 
 <template>

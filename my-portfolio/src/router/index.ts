@@ -13,7 +13,7 @@ const router = createRouter({
     { path: '/contact', name: 'contact', component: Contact },
   ],
 
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_to, _from, savedPosition)  {
     if (savedPosition) {
       // back/forward browser navigation
       return savedPosition
