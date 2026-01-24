@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import PageContainer from '@/components/PageContainer.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
@@ -9,30 +8,47 @@ import { RouterLink } from 'vue-router'
       <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-6">
         Full-Stack Developer
         <br />
-        <span class="text-indigo-400">Building production-ready Laravel & Vue applications
-for real-world business workflows.</span>
+        <span class="text-indigo-400">
+          Building production-grade Laravel, Vue, and React systems
+        </span>
       </h1>
 
       <p class="text-lg text-gray-300 max-w-2xl mb-8">
-        I build production-ready web applications with clean architecture,
-        scalable APIs, and modern frontend frameworks.
+        I have 2+ years of professional experience building and maintaining
+        real-world applications involving APIs, payments, admin dashboards,
+        and business-critical workflows for live products.
       </p>
 
-      <div class="flex gap-4">
-        <RouterLink
-          to="/projects"
-          class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium"
-        >
-          View Projects
-        </RouterLink>
+      <div class="flex flex-wrap gap-4 mb-6">
+  <RouterLink
+    to="/projects"
+    class="bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium"
+  >
+    View Projects
+  </RouterLink>
 
-        <RouterLink
-          to="/contact"
-          class="border border-gray-700 hover:border-gray-500 px-6 py-3 rounded-lg text-gray-300"
-        >
-          Contact Me
-        </RouterLink>
-      </div>
+  <RouterLink
+    to="/contact"
+    class="border border-gray-700 hover:border-gray-500 px-6 py-3 rounded-lg text-gray-300"
+  >
+    Contact Me
+  </RouterLink>
+
+  <a
+    href="/Bhumil_Parate_Resume.pdf"
+    download
+    class="border border-gray-700 hover:border-indigo-400 px-6 py-3 rounded-lg text-gray-300 hover:text-indigo-400 transition"
+  >
+    Download Resume
+  </a>
+</div>
+
+
+      <p class="text-sm text-gray-400">
+        • Software Engineer at Lucki Media (India) <br />
+        • Graduate Certificate – Conestoga College (Canada) <br />
+        • Open Work Permit | Available Full Time
+      </p>
     </div>
   </section>
 </template>
