@@ -21,7 +21,6 @@ import PageContainer from '@/components/PageContainer.vue'
   </a>
 </div>
 
-    <div class="w-16 h-1 bg-indigo-500 rounded-full mb-12"></div>
 
     <!-- Summary -->
     <p class="text-gray-300 max-w-3xl mb-12">
