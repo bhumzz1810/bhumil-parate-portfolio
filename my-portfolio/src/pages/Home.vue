@@ -14,7 +14,7 @@ import { RouterLink } from 'vue-router'
       </h1>
 
       <p class="text-lg text-gray-300 max-w-2xl mb-8">
-        I have 2+ years of professional experience building and maintaining
+        I have 3+ years of professional experience building and maintaining
         real-world applications involving APIs, payments, admin dashboards,
         and business-critical workflows for live products.
       </p>
@@ -45,7 +45,7 @@ import { RouterLink } from 'vue-router'
 
 
       <p class="text-sm text-gray-400">
-        • Software Engineer at Lucki Media (India) <br />
+        • Senior Laravel Developer at Lucki Media (India) <br />
         • Graduate Certificate – Conestoga College (Canada) <br />
         • Open Work Permit | Available Full Time
       </p>

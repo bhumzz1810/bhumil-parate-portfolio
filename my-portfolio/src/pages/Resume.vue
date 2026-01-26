@@ -32,12 +32,11 @@ and shipping production web applications using Laravel, Vue, and React.
     </p>
 
     <!-- Experience -->
-    <!-- Experience -->
 <h2 class="text-2xl font-semibold mb-4">Professional Experience</h2>
 
 <div class="mb-12">
   <h3 class="text-xl font-semibold">
-    Software Engineer — iCube TechnoLabs
+    Senior Laravel Developer — Lucki Media (India)
   </h3>
   <p class="text-gray-400 text-sm mb-3">
     Aug 2021 – Dec 2023
@@ -72,7 +71,7 @@ and shipping production web applications using Laravel, Vue, and React.
   </ul>
 
   <h4 class="text-lg font-semibold mt-6">
-    Internship Trainee — iCube TechnoLabs
+    Internship Trainee — Lucki Media (India)
   </h4>
   <p class="text-gray-400 text-sm mb-3">
     Jan 2021 – Jul 2021

@@ -16,10 +16,10 @@ import PageContainer from '@/components/PageContainer.vue'
       <div>
         <p class="text-gray-400 text-sm mb-1">Email</p>
         <a
-          href="mailto:bunnyparate7193@gmail.com"
+          href="mailto:bhumilparate944@gmail.com"
           class="text-indigo-400 hover:underline"
         >
-          bunnyparate7193@gmail.com
+          bhumilparate944@gmail.com
         </a>
       </div>
 
@@ -37,11 +37,11 @@ import PageContainer from '@/components/PageContainer.vue'
       <div>
         <p class="text-gray-400 text-sm mb-1">LinkedIn</p>
         <a
-          href="https://www.linkedin.com/in/bhumil-parate-18538016a/"
+          href="https://www.linkedin.com/in/bhumilparate"
           target="_blank"
           class="text-indigo-400 hover:underline"
         >
-          linkedin.com/in/bhumil-parate-18538016a
+          linkedin.com/in/bhumilparate
         </a>
       </div>
     </div>
