@@ -3,7 +3,7 @@
 A modern, production-ready developer portfolio built with **Vue 3, TypeScript, Vite, and Tailwind CSS**.  
 This portfolio showcases my professional experience, real-world projects, and technical skillset as a **Full-Stack Developer with 3+ years of experience**.
 
-🔗 **Live Portfolio:** https://YOUR-VERCEL-URL.vercel.app  
+🔗 **Live Portfolio:** [https://YOUR-VERCEL-URL.vercel.app](https://bhumil-parate-portfolio.vercel.app/)  
 📄 **Resume:** Available directly from the portfolio
 
 ---
