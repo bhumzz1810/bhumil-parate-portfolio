@@ -25,10 +25,10 @@ import { projects } from '../data/projects'
   </span>
 
   <span
-    v-if="project.title.includes('iCube TechnoLabs')"
+    v-if="project.title.includes('Lucki Media')"
     class="text-xs uppercase tracking-wide bg-gray-800 text-gray-300 px-2 py-0.5 rounded-full"
   >
-    Company Project — iCube TechnoLabs
+    Company Project — Lucki Media
   </span>
 </div>
 
@@ -68,8 +68,8 @@ import { projects } from '../data/projects'
     View App →
   </a>
 
-  <!-- Shopify app links (only for iCube TechnoLabs project) -->
-  <template v-if="project.title.includes('iCube TechnoLabs')">
+  <!-- Shopify app links (only for Lucki Media project) -->
+  <template v-if="project.title.includes('Lucki Media')">
     <a
       href="https://apps.shopify.com/gemfind-diamond-link-1"
       target="_blank"

@@ -53,9 +53,9 @@ export const projects: Project[] = [
   },
   {
   id: 4,
-  title: "Shopify Marketplace Apps — iCube TechnoLabs",
+  title: "Shopify Marketplace Apps — Lucki Media",
   description:
-    "Built and maintained multiple public Shopify marketplace apps at iCube TechnoLabs, used by live merchants to improve cart behavior, pricing control, and conversions.",
+    "Built and maintained multiple public Shopify marketplace apps at Lucki Media, used by live merchants to improve cart behavior, pricing control, and conversions.",
   stack: ["Laravel", "React", "MySQL", "Shopify APIs"],
   highlights: [
     "Diamond Link — advanced diamond product linking and filtering",
