@@ -5,19 +5,20 @@ import { RouterLink } from 'vue-router'
 <template>
   <section class="min-h-screen flex items-center">
     <div class="max-w-6xl mx-auto px-6">
-      <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-6">
-        Full-Stack Developer
-        <br />
-        <span class="text-indigo-400">
-          Building production-grade Laravel, Vue, and React systems
-        </span>
-      </h1>
+     <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight mb-6">
+  Bhumil Parate
+  <br />
+  <span class="text-indigo-400">
+    Full-Stack Developer (Laravel, Vue, React)
+  </span>
+</h1>
+
 
       <p class="text-lg text-gray-300 max-w-2xl mb-8">
-        I have 3+ years of professional experience building and maintaining
-        real-world applications involving APIs, payments, admin dashboards,
-        and business-critical workflows for live products.
-      </p>
+  Hi, I’m Bhumil Parate — a Full-Stack Developer with 3+ years of professional
+  experience building and maintaining real-world applications involving APIs,
+  payments, admin dashboards, and business-critical workflows for live products.
+</p>
 
       <div class="flex flex-wrap gap-4 mb-6">
   <RouterLink
