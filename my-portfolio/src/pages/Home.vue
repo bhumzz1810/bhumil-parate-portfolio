@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHead } from '@vueuse/head'
-import { TechIconMap, type TechName } from '../icons/tech-icons'
+import { TechIconMap, type TechName } from '@/icons/tech-icons'
 
 /* =========================
    SEO
