@@ -1,22 +1,14 @@
 @import "tailwindcss";
-/* Page transition */
-.page-enter-active,
-.page-leave-active {
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+
+/* Force dark background across app */
+html,
+body {
+  background: #070a13;
 }
 
-.page-enter-from {
-  opacity: 0;
-  transform: translateY(4px);
-}
-
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(-4px);
-}
-/* Smooth page transitions */
+/* =========================
+   Page Route Transitions
+   ========================= */
 .page-enter-active,
 .page-leave-active {
   transition:
@@ -24,14 +16,140 @@
     transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.page-enter-from,
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 .page-leave-to {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(-8px);
 }
+
+/* =========================
+   Premium stagger animations
+   ========================= */
+.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.fade-delay-1 {
+  animation-delay: 0.05s;
+}
+.fade-delay-2 {
+  animation-delay: 0.12s;
+}
+.fade-delay-3 {
+  animation-delay: 0.18s;
+}
+.fade-delay-4 {
+  animation-delay: 0.26s;
+}
+.fade-delay-5 {
+  animation-delay: 0.34s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .page-enter-active,
   .page-leave-active {
     transition: none;
   }
+
+  .fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1;
+  padding: 0.45rem 0.65rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.badge:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.badge-strong {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.18),
+    rgba(56, 189, 248, 0.14),
+    rgba(168, 85, 247, 0.16)
+  );
+  border-color: rgba(99, 102, 241, 0.28);
+}
+/* icon container that works on dark + light */
+.tech-logo {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+:root.light .tech-logo {
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ensure svg fits */
+.tech-logo :deep(svg) {
+  width: 16px;
+  height: 16px;
+}
+
+/* for monochrome icons: let them follow text color */
+.tech-logo--mono :deep(svg) {
+  color: currentColor;
+}
+.tech-logo {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1); /* slightly brighter than before */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.tech-logo :deep(svg) {
+  width: 18px;
+  height: 18px;
+}
+.tech-card {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+.tech-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.35);
+  background: rgba(255, 255, 255, 0.06);
 }
