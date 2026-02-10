@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 import Icons from 'unplugin-icons/vite'
-import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 
 export default defineConfig({
@@ -12,21 +12,19 @@ export default defineConfig({
     vue(),
     tailwindcss(),
 
-    // Auto-import icon components (optional but nice)
-    AutoImport({
-      dts: 'src/auto-imports.d.ts',
-      imports: ['vue'],
+    // ✅ enables "~icons/..." imports
+    Icons({
+      compiler: 'vue3',
+    }),
+
+    // ✅ optional but nice: lets you use <IconLogosPhp /> without manual import
+    Components({
+      dts: 'src/components.d.ts',
       resolvers: [
         IconsResolver({
           prefix: 'Icon',
         }),
       ],
-    }),
-
-    // Enables ~icons/* imports
-    Icons({
-      compiler: 'vue3',
-      autoInstall: true,
     }),
   ],
   resolve: {

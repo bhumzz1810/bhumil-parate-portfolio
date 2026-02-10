@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHead } from '@vueuse/head'
-import { TechIconMap } from '@/icons/tech-icons'
+import { TechIconMap, type TechName } from '../icons/tech-icons'
 
 /* =========================
    SEO
@@ -123,7 +123,7 @@ const techCategories = computed(() => [
   },
 ])
 
-const iconForTech = (name: string) => TechIconMap[name as keyof typeof TechIconMap] || null
+const iconForTech = (name: string) => TechIconMap[name as TechName] ?? null
 
 /* =========================
    Copy blocks
