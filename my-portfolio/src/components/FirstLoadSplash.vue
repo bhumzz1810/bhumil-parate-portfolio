@@ -1,243 +1,237 @@
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
+
+/**
+ * ✅ TS-safe props:
+ * - every optional prop has a default (withDefaults)
+ * - anything bound to :src / :style is ALWAYS a string
+ */
+const props = withDefaults(
+  defineProps<{
+    /** Control visibility from parent */
+    show?: boolean
+
+    /** How long to keep splash on screen (ms) */
+    durationMs?: number
+
+    /** Extra delay before fade-out (ms) */
+    minVisibleMs?: number
+
+    /** Optional logo/image (can be omitted safely) */
+    logoSrc?: string
+
+    /** Optional text */
+    title?: string
+    subtitle?: string
+  }>(),
+  {
+    show: true,
+    durationMs: 1300, // overall feel (animation pacing)
+    minVisibleMs: 1100, // ✅ makes it slower (stays visible)
+    logoSrc: '', // ✅ always a string
+    title: 'Loading',
+    subtitle: 'Preparing experience…',
+  }
+)
+
+const emit = defineEmits<{
+  (e: 'done'): void
+}>()
+
+const isVisible = ref(false)
+const isLeaving = ref(false)
+
+const safeLogoSrc = computed(() => props.logoSrc ?? '') // ✅ always string
+const safeTitle = computed(() => props.title ?? 'Loading')
+const safeSubtitle = computed(() => props.subtitle ?? 'Preparing experience…')
+
+// A simple progress animation (CSS handles it), but we keep timing consistent
+onMounted(() => {
+  // show immediately
+  isVisible.value = props.show
+
+  // keep it visible for at least minVisibleMs, then fade out
+  const min = Math.max(300, props.minVisibleMs)
+  const fadeMs = 520
+
+  window.setTimeout(() => {
+    isLeaving.value = true
+  }, min)
+
+  window.setTimeout(() => {
+    isVisible.value = false
+    emit('done')
+  }, min + fadeMs)
+})
+</script>
+
 <template>
-  <div
-    class="fixed inset-0 z-[9999] grid place-items-center overflow-hidden"
-    :class="leaving ? 'pointer-events-none' : ''"
-    aria-label="Loading"
-    role="status"
-  >
-    <!-- Background -->
-    <div class="absolute inset-0 bg-[#070A13]" />
-    <div class="absolute inset-0 bg-gradient-to-b from-[#070A13] via-[#0B1022] to-[#070A13]" />
+  <transition name="splash">
+    <div
+      v-if="isVisible"
+      class="fixed inset-0 z-[99999] grid place-items-center overflow-hidden"
+      aria-label="Loading screen"
+      role="status"
+    >
+      <!-- Background -->
+      <div class="absolute inset-0 bg-gradient-to-b from-[#050712] via-[#070A13] to-[#050712]" />
 
-    <!-- Blobs -->
-    <div class="blob blob-a" aria-hidden="true"></div>
-    <div class="blob blob-b" aria-hidden="true"></div>
+      <!-- Glow blobs -->
+      <div
+        class="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full blur-3xl opacity-30
+               bg-gradient-to-tr from-indigo-500 via-purple-500 to-sky-500"
+      />
+      <div
+        class="pointer-events-none absolute bottom-[-160px] right-[-160px] h-[420px] w-[420px] rounded-full blur-3xl opacity-20
+               bg-gradient-to-tr from-sky-500 via-indigo-500 to-purple-500"
+      />
 
-    <!-- Noise -->
-    <div class="noise" aria-hidden="true"></div>
-
-    <!-- Content -->
-    <div class="relative w-full max-w-md px-6">
-      <div class="glass">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="mark" aria-hidden="true">
-              <span>BP</span>
-            </div>
-            <div>
-              <p class="name">Bhumil Parate</p>
-              <p class="sub">Loading portfolio…</p>
-            </div>
+      <!-- Card -->
+      <div
+        class="relative mx-4 w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-7 backdrop-blur
+               shadow-[0_20px_70px_rgba(0,0,0,0.35)]"
+        :class="{ 'splash-leave': isLeaving }"
+      >
+        <div class="flex items-center gap-4">
+          <!-- Logo (optional) -->
+          <div
+            class="h-12 w-12 shrink-0 rounded-2xl border border-white/10 bg-white/5 grid place-items-center overflow-hidden"
+          >
+            <img
+              v-if="safeLogoSrc"
+              :src="safeLogoSrc"
+              alt="Logo"
+              class="h-10 w-10 object-contain"
+            />
+            <!-- Fallback icon -->
+            <svg
+              v-else
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-6 w-6 text-indigo-200"
+              aria-hidden="true"
+            >
+              <path d="M12 2l7 4v6c0 6-3 10-7 12-4-2-7-6-7-12V6l7-4z" />
+              <path d="M9 12l2 2 4-5" />
+            </svg>
           </div>
 
-          <div class="pulse-dot" aria-hidden="true"></div>
+          <div class="min-w-0">
+            <p class="text-white font-semibold text-lg leading-tight">
+              {{ safeTitle }}
+              <span class="dots" aria-hidden="true"></span>
+            </p>
+            <p class="mt-1 text-sm text-gray-300/80">
+              {{ safeSubtitle }}
+            </p>
+          </div>
         </div>
 
-        <!-- Progress -->
-        <div class="mt-5">
-          <div class="track">
-            <div class="bar" :style="{ width: `${progress}%` }"></div>
+        <!-- Progress bar -->
+        <div class="mt-6">
+          <div class="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+            <div class="h-full w-full progress-bar"></div>
           </div>
-          <div class="mt-2 flex items-center justify-between text-xs text-white/55">
-            <span>{{ hint }}</span>
-            <span>{{ Math.min(99, Math.round(progress)) }}%</span>
+
+          <div class="mt-3 flex items-center justify-between text-xs text-gray-300/70">
+            <span>Optimizing assets</span>
+            <span class="pulse">Please wait</span>
           </div>
         </div>
       </div>
 
-      <p class="mt-5 text-center text-xs text-white/45">
-        Tip: Press <span class="kbd">Ctrl</span> + <span class="kbd">K</span> to search projects (coming soon)
-      </p>
+      <!-- subtle grain -->
+      <div class="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay grain" />
     </div>
-
-    <!-- fade out -->
-    <div class="fade" :class="leaving ? 'fade-out' : ''" aria-hidden="true"></div>
-  </div>
+  </transition>
 </template>
 
-<script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
-const emit = defineEmits<{ (e: 'done'): void }>()
-const progress = ref(12)
-const leaving = ref(false)
-const hint = ref('Booting UI')
-
-const hints = ['Booting UI', 'Loading components', 'Preparing routes', 'Almost there']
-
-function tickTo(target: number, ms: number) {
-  const start = progress.value
-  const diff = target - start
-  const startAt = performance.now()
-
-  const step = (now: number) => {
-    const t = Math.min(1, (now - startAt) / ms)
-    // easeOutCubic
-    const eased = 1 - Math.pow(1 - t, 3)
-    progress.value = start + diff * eased
-    if (t < 1) requestAnimationFrame(step)
-  }
-  requestAnimationFrame(step)
-}
-
-onMounted(async () => {
-  // animate hints
-  let i = 0
-  const hintTimer = window.setInterval(() => {
-    i = (i + 1) % hints.length
-    hint.value = hints[i]
-  }, 2020)
-
-  // quick “realistic” progress (don’t overfake)
-  tickTo(55, 520)
-  tickTo(82, 720)
-
-  // wait for fonts (if supported) + minimum time so it looks premium
-  const minDelay = new Promise((r) => setTimeout(r, 900))
-  const fontsReady =
-    (document as any).fonts?.ready?.catch?.(() => null) ?? Promise.resolve(null)
-
-  await Promise.all([minDelay, fontsReady])
-
-  tickTo(100, 380)
-  window.clearInterval(hintTimer)
-
-  // exit
-  leaving.value = true
-  setTimeout(() => emit('done'), 320)
-})
-</script>
-
 <style scoped>
-.blob {
-  position: absolute;
-  width: 620px;
-  height: 620px;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.28;
-  transform: translateZ(0);
-  animation: float 6.5s ease-in-out infinite;
+/* Transition in/out */
+.splash-enter-active,
+.splash-leave-active {
+  transition: opacity 520ms ease;
 }
-.blob-a {
-  left: 50%;
-  top: -220px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle at 30% 30%, #6366f1, transparent 55%),
-    radial-gradient(circle at 70% 60%, #a855f7, transparent 55%),
-    radial-gradient(circle at 40% 80%, #0ea5e9, transparent 55%);
-}
-.blob-b {
-  right: -220px;
-  top: 120px;
-  width: 520px;
-  height: 520px;
-  opacity: 0.22;
-  background: radial-gradient(circle at 30% 30%, #0ea5e9, transparent 55%),
-    radial-gradient(circle at 70% 60%, #6366f1, transparent 55%),
-    radial-gradient(circle at 40% 80%, #a855f7, transparent 55%);
-  animation-delay: 0.6s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translate3d(-50%, 0, 0) scale(1); }
-  50% { transform: translate3d(-50%, 18px, 0) scale(1.02); }
-}
-
-.noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.08;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
-.glass {
-  border-radius: 18px;
-  padding: 18px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
-}
-
-.mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(199, 210, 254, 0.95);
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
-.name {
-  color: white;
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-.sub {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.78rem;
-  margin-top: 2px;
-}
-
-.pulse-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 9999px;
-  background: #34d399;
-  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
-  animation: pulse 1.2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
-  70% { box-shadow: 0 0 0 12px rgba(52, 211, 153, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
-}
-
-.track {
-  height: 10px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-}
-.bar {
-  height: 100%;
-  border-radius: 9999px;
-  background: linear-gradient(90deg, #6366f1, #0ea5e9, #a855f7);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.22);
-  transition: width 120ms linear;
-}
-
-.kbd {
-  padding: 0.15rem 0.35rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.75);
-}
-
-.fade {
-  position: absolute;
-  inset: 0;
+.splash-enter-from,
+.splash-leave-to {
   opacity: 0;
-  transition: opacity 260ms ease;
-}
-.fade-out {
-  opacity: 1;
-}
-.fade.fade-out {
-  background: rgba(7, 10, 19, 0.9);
 }
 
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .blob, .pulse-dot { animation: none !important; }
-  .bar { transition: none !important; }
+/* Make exit feel premium */
+.splash-leave {
+  transition: transform 520ms ease, opacity 520ms ease;
+  transform: translateY(6px) scale(0.99);
+  opacity: 0.95;
+}
+
+/* Animated progress */
+.progress-bar {
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.25),
+    rgba(56, 189, 248, 0.35),
+    rgba(168, 85, 247, 0.30)
+  );
+  transform: translateX(-100%);
+  animation: progress 1250ms ease-in-out forwards;
+}
+
+/* Dots after Loading */
+.dots::after {
+  content: '...';
+  animation: dots 900ms steps(4, end) infinite;
+}
+
+.pulse {
+  animation: pulse 900ms ease-in-out infinite;
+}
+
+/* Grain overlay */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+@keyframes progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  85% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes dots {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+  100% {
+    content: '';
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 </style>
