@@ -65,19 +65,19 @@ function trackResumeClick(label: string, destination: string) {
             </div>
 
             <div class="flex flex-col xs:flex-row gap-3 w-full sm:w-auto shrink-0">
-              <a href="/Bhumil_Resume_Full Stack_Developer.pdf" download
+              <a href="/Bhumil_Resume.pdf" download
                 class="w-full xs:w-auto text-center bg-white/5 hover:bg-white/8 border border-white/10
                        hover:border-white/18 px-5 py-2.5 rounded-lg text-gray-200 text-sm transition-all
                        focus:outline-none focus:ring-2 focus:ring-white/30"
-                @click="trackResumeClick('resume_download_pdf', '/Bhumil_Resume_Full Stack_Developer.pdf')">
+                @click="trackResumeClick('resume_download_pdf', '/Bhumil_Resume.pdf')">
                 Download PDF
               </a>
-              <a href="/Bhumil_Resume_Full Stack_Developer.pdf" target="_blank" rel="noopener"
+              <a href="/Bhumil_Resume.pdf" target="_blank" rel="noopener"
                 class="w-full xs:w-auto text-center bg-indigo-500 hover:bg-indigo-400 text-white px-5 py-2.5
                        rounded-lg font-medium text-sm transition-all
                        shadow-[0_0_20px_rgba(99,102,241,0.30)] hover:shadow-[0_0_30px_rgba(99,102,241,0.45)]
                        focus:outline-none focus:ring-2 focus:ring-indigo-300/70"
-                @click="trackResumeClick('resume_open_pdf', '/Bhumil_Resume_Full Stack_Developer.pdf')">
+                @click="trackResumeClick('resume_open_pdf', '/Bhumil_Resume.pdf')">
                 Open PDF
               </a>
             </div>

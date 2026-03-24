@@ -261,11 +261,11 @@ function trackHomeClick(label: string, destination: string) {
                   View Resume
                 </RouterLink>
 
-                <a href="/Bhumil_Resume_Full Stack_Developer.pdf" download
+                <a href="/Bhumil_Resume.pdf" download
                   class="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm sm:text-base
                          text-gray-300 hover:text-white bg-white/0 hover:bg-white/5 border border-white/10
                          transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30"
-                  @click="trackHomeClick('hero_download_resume', '/Bhumil_Resume_Full Stack_Developer.pdf')"
+                  @click="trackHomeClick('hero_download_resume', '/Bhumil_Resume.pdf')"
                 >
                   <svg class="w-4 h-4 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
