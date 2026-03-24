@@ -14,6 +14,7 @@ declare module 'vue' {
     FirstLoadSplash: typeof import('./components/FirstLoadSplash.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    InfiniteMarquee: typeof import('./components/InfiniteMarquee.vue')['default']
     Navbar: typeof import('./components/Navbar.vue')['default']
     PageContainer: typeof import('./components/PageContainer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

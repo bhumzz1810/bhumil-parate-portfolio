@@ -3,33 +3,35 @@ import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import FirstLoadSplash from '@/components/FirstLoadSplash.vue'
 import { RouterView, useRouter } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 const router = useRouter()
 
 const showSplash = ref(false)
 const routeLoading = ref(false)
+const scrollProgress = ref(0)
 
 onMounted(() => {
   const key = 'bp_seen_splash_v1'
-  const seen = sessionStorage.getItem(key)
-
-  if (!seen) {
+  if (!sessionStorage.getItem(key)) {
     showSplash.value = true
     sessionStorage.setItem(key, '1')
   }
+
+  const onScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight
+    scrollProgress.value = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
+  }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
 })
 
-router.beforeEach(() => {
-  routeLoading.value = true
-})
-router.afterEach(() => {
-  setTimeout(() => (routeLoading.value = false), 180)
-})
+router.beforeEach(() => { routeLoading.value = true })
+router.afterEach(() => { setTimeout(() => (routeLoading.value = false), 180) })
 </script>
 
 <template>
-  <!-- First time only -->
   <FirstLoadSplash
     v-if="showSplash"
     :minVisibleMs="1600"
@@ -39,8 +41,18 @@ router.afterEach(() => {
     @done="showSplash = false"
   />
 
+  <!-- Scroll progress bar -->
+  <div
+    class="scroll-progress"
+    :style="{ width: scrollProgress + '%' }"
+    aria-hidden="true"
+  />
+
   <!-- Route loading bar -->
-  <div v-if="routeLoading" class="fixed inset-x-0 top-0 z-[9999] h-[3px] bg-indigo-400"></div>
+  <div
+    v-if="routeLoading"
+    class="fixed inset-x-0 top-0 z-[9998] h-[2px] bg-indigo-400/60 animate-pulse"
+  />
 
   <div class="min-h-screen flex flex-col">
     <Navbar />

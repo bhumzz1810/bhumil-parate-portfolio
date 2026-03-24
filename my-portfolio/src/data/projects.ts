@@ -15,6 +15,22 @@ export const projects: Project[] = [
   // Featured (Top 5–6)
   // =========================
   {
+    id: 0,
+    title: "Smart Energy & IoT Monitoring Platform",
+    company: "Siemens — Canada",
+    featured: true,
+    description:
+      "Enterprise-grade IoT monitoring platform for real-time energy grid data ingestion, fault detection, and predictive maintenance at industrial scale.",
+    stack: ["Java 17", "Spring Boot", "Spring Cloud", "Apache Kafka", "PostgreSQL", "React.js", "TypeScript", "AWS", "Docker", "Kubernetes"],
+    highlights: [
+      "Built backend microservices for real-time data ingestion improving grid reliability by 35% through faster fault detection",
+      "Implemented Spring Security with OAuth2 and JWT, reducing unauthorized access incidents by 40% in production",
+      "Deployed on AWS (EC2, S3, RDS, Lambda) with Docker and Kubernetes, reducing downtime by 30%",
+      "Processed real-time data streams via Apache Kafka and AWS CloudWatch for early anomaly detection",
+    ],
+  },
+
+  {
     id: 1,
     title: "Wide Open Fishing",
     company: "Local Business — Dubai",
@@ -66,15 +82,16 @@ export const projects: Project[] = [
 
   {
     id: 4,
-    title: "Shopify Marketplace Apps — Lucki Media",
-    company: "Lucki Media (Company Projects)",
+    title: "Shopify Marketplace Apps — LuckiMedia",
+    company: "LuckiMedia (Company Projects)",
     featured: true,
     description:
-      "Built and maintained public Shopify marketplace apps used by merchants to improve conversions, pricing workflows, and storefront UX.",
-    stack: ["Laravel", "React", "MySQL", "Shopify APIs", "Webhooks"],
+      "Built and maintained public Shopify marketplace apps using Spring Boot microservices and React.js, used by merchants to improve conversions, pricing workflows, and storefront UX.",
+    stack: ["Java", "Spring Boot", "React.js", "TypeScript", "MySQL", "Shopify APIs", "Azure", "Docker"],
     highlights: [
-      "Worked on merchant-facing configurations and production Shopify integrations",
-      "Handled webhooks and API-driven sync workflows across Shopify stores",
+      "Developed scalable Spring Boot microservices for Shopify API integration and webhook sync workflows",
+      "Built React.js frontends integrated with Spring Boot APIs for merchant-facing configurations",
+      "Deployed on Microsoft Azure using Docker and CI/CD pipelines, reducing release cycles by 40%",
       "Supported multiple apps: Diamond Link, Sticky Cart Drawer & Upsell, Request Quote & Hide Price",
     ],
     live: "https://apps.shopify.com/gemfind-diamond-link-1",
